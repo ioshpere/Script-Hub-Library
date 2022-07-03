@@ -1,3 +1,5 @@
+--Shit code v2
+
 local ScriptHub = {}
 
 local UIS = game:GetService("UserInputService")
