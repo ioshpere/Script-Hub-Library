@@ -1,48 +1,33 @@
+local ScriptHub = {}
+
 local UIS = game:GetService("UserInputService")
 
-local Library = {}
-
-function Library:CreateWindow(Name)
+function ScriptHub:CreateWindow(Name)
 
 	local ScreenGui = Instance.new("ScreenGui")
-	local Background = Instance.new("Frame")
-	local UICorner = Instance.new("UICorner")
-	local ScriptHubTab = Instance.new("ScrollingFrame")
-	local UIListLayout = Instance.new("UIListLayout")
+	local TopBar = Instance.new("Frame")
 	local Title = Instance.new("TextLabel")
-	local UICorner_2 = Instance.new("UICorner")
+	local Close = Instance.new("TextButton")
+	local Background = Instance.new("ScrollingFrame")
+	local UIListLayout = Instance.new("UIListLayout")
 
-	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.Parent = game.CoreGui
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-	Background.Name = "Background"
-	Background.Parent = ScreenGui
-	Background.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	Background.Position = UDim2.new(0.0497109815, 0, 0.472868174, 0)
-	Background.Size = UDim2.new(0.306936413, 0, 0.436950922, 0)
-
-	UICorner.CornerRadius = UDim.new(0, 15)
-	UICorner.Parent = Background
-
-	ScriptHubTab.Name = "ScriptHubTab"
-	ScriptHubTab.Parent = Background
-	ScriptHubTab.Active = true
-	ScriptHubTab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-	ScriptHubTab.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	ScriptHubTab.Position = UDim2.new(0.0564971752, 0, 0.121802218, 0)
-	ScriptHubTab.Size = UDim2.new(0.858757079, 0, 0.769563854, 0)
-	ScriptHubTab.CanvasSize = UDim2.new(0, 0, 20, 0)
-
-	UIListLayout.Parent = ScriptHubTab
-	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-	UIListLayout.Padding = UDim.new(0, 5)
+	TopBar.Name = "TopBar"
+	TopBar.Parent = ScreenGui
+	TopBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	TopBar.BorderSizePixel = 0
+	TopBar.Position = UDim2.new(0.0242774654, 0, 0.496124029, 0)
+	TopBar.Size = UDim2.new(0.280346811, 0, 0.0519380383, 0)
 
 	Title.Name = "Title"
-	Title.Parent = Background
+	Title.Parent = TopBar
 	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Title.BackgroundTransparency = 1.000
-	Title.Position = UDim2.new(0, 0, -0.00280857366, 0)
-	Title.Size = UDim2.new(1.00000012, 0, 0.124610737, 0)
+	Title.BorderSizePixel = 0
+	Title.Position = UDim2.new(-1.5730711e-08, 0, 0, 0)
+	Title.Size = UDim2.new(0.344329894, 0, 0.997998416, 0)
 	Title.Font = Enum.Font.Nunito
 	Title.Text = Name
 	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -50,91 +35,84 @@ function Library:CreateWindow(Name)
 	Title.TextSize = 14.000
 	Title.TextWrapped = true
 
-	UICorner_2.CornerRadius = UDim.new(0, 15)
-	UICorner_2.Parent = Title
+	Close.Name = "Close"
+	Close.Parent = TopBar
+	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Close.BackgroundTransparency = 1.000
+	Close.BorderSizePixel = 0
+	Close.Position = UDim2.new(0.907216549, 0, 0, 0)
+	Close.Size = UDim2.new(0.08969073, 0, 0.997996926, 0)
+	Close.Font = Enum.Font.Nunito
+	Close.Text = "X"
+	Close.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Close.TextScaled = true
+	Close.TextSize = 14.000
+	Close.TextWrapped = true
+	Close.MouseButton1Click:Connect(function()
+		ScreenGui:Destroy()
+	end)
+	
+	Background.Name = "Background"
+	Background.Parent = TopBar
+	Background.Active = true
+	Background.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	Background.BorderSizePixel = 0
+	Background.Position = UDim2.new(0, 0, 0.997999668, 0)
+	Background.Size = UDim2.new(1.00000012, 0, 7.82500458, 0)
+	Background.CanvasSize = UDim2.new(0, 0, 1, 0)
+	Background.ScrollBarThickness = 5
 
-	local function THWDVII_fake_script() -- Background.Dragify 
-		local script = Instance.new('LocalScript', Background)
-
-		local UserInputService = game:GetService("UserInputService")
-
-		local gui = script.Parent
-
-		local dragging
-		local dragInput
-		local dragStart
-		local startPos
-
-		local function update(input)
-			local delta = input.Position - dragStart
-			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-		end
-
-		gui.InputBegan:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-				dragging = true
-				dragStart = input.Position
-				startPos = gui.Position
-
-				input.Changed:Connect(function()
-					if input.UserInputState == Enum.UserInputState.End then
-						dragging = false
-					end
-				end)
-			end
-		end)
-
-		gui.InputChanged:Connect(function(input)
-			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-				dragInput = input
-			end
-		end)
-
-		UserInputService.InputChanged:Connect(function(input)
-			if input == dragInput and dragging then
-				update(input)
-			end
-		end)
+	UIListLayout.Parent = Background
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIListLayout.Padding = UDim.new(0, 4)
+	
+	
+	-- Scripts:
+	
+	local function IPLS_fake_script()
+		local script = Instance.new('LocalScript', TopBar)
+	
+		script.Parent.Active = true
+		script.Parent.Draggable = true
 	end
-	coroutine.wrap(THWDVII_fake_script)()
-
-
+	coroutine.wrap(IPLS_fake_script)()
+	
+	
 	UIS.InputBegan:Connect(function(input)
-		if input.KeyCode == Enum.KeyCode.Delete then
-			ScreenGui:Destroy()
+		if input.KeyCode == Enum.KeyCode.G then
+			if TopBar.Visible == true then TopBar.Visible = false else TopBar.Visible = true end
 		end
 	end)
+	
+	--Scripts End:
+	
+	
+	local Buttons = {}
+	
+	function Buttons:CreateNewButton(Text, Call)
+		
+		local TextButton = Instance.new("TextButton")
+		local UICorner = Instance.new("UICorner")
+		
+		TextButton.Parent = Background
+		TextButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+		TextButton.Size = UDim2.new(1.00000012, 0, 0.119999997, 0)
+		TextButton.Font = Enum.Font.Nunito
+		TextButton.Text = Text
+		TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TextButton.TextScaled = true
+		TextButton.TextSize = 14.000
+		TextButton.TextWrapped = true
 
-	local EpicLib = {}
-
-	function EpicLib:CreateButton(Text, Call)
-
-		local Button = Instance.new("TextButton")
-		local UICorner_2 = Instance.new("UICorner")
-
-		Button.Name = "Button"
-		Button.Parent = ScriptHubTab
-		Button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-		Button.Size = UDim2.new(0.965, 0, 0.006, 0)
-		Button.Font = Enum.Font.Nunito
-		Button.Text = Text
-		Button.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Button.TextScaled = true
-		Button.TextSize = 14.000
-		Button.TextWrapped = true
-
-		UICorner_2.CornerRadius = UDim.new(1, 0)
-		UICorner_2.Parent = Button
-
-		Button.MouseButton1Click:Connect(function()
-
+		UICorner.CornerRadius = UDim.new(1, 0)
+		UICorner.Parent = TextButton
+		
+		TextButton.MouseButton1Click:Connect(function()
 			pcall(Call)
-
 		end)
 	end
-
-	return EpicLib
+	
+	return Buttons
 end
 
-return Library
-
+return ScriptHub
