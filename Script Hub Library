@@ -1,34 +1,32 @@
-
 local ScriptHub = {}
 
-local UIS = game:GetService("UserInputService")
-
 function ScriptHub:CreateWindow(Name)
-
+	
 	local ScreenGui = Instance.new("ScreenGui")
 	local TopBar = Instance.new("Frame")
 	local Title = Instance.new("TextLabel")
 	local Close = Instance.new("TextButton")
-	local Background = Instance.new("ScrollingFrame")
+	local Background = Instance.new("Frame")
+	local ScriptFrame = Instance.new("ScrollingFrame")
 	local UIListLayout = Instance.new("UIListLayout")
-
+	
 	ScreenGui.Parent = game.CoreGui
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	TopBar.Name = "TopBar"
 	TopBar.Parent = ScreenGui
-	TopBar.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 	TopBar.BorderSizePixel = 0
-	TopBar.Position = UDim2.new(0.0242774654, 0, 0.496124029, 0)
-	TopBar.Size = UDim2.new(0.280346811, 0, 0.0519380383, 0)
+	TopBar.Position = UDim2.new(0.0346820801, 0, 0.444444478, 0)
+	TopBar.Size = UDim2.new(0.244508669, 0, 0.0545219779, 0)
 
 	Title.Name = "Title"
 	Title.Parent = TopBar
 	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Title.BackgroundTransparency = 1.000
 	Title.BorderSizePixel = 0
-	Title.Position = UDim2.new(-1.5730711e-08, 0, 0, 0)
-	Title.Size = UDim2.new(0.344329894, 0, 0.997998416, 0)
+	Title.Position = UDim2.new(-1.80363937e-08, 0, 0, 0)
+	Title.Size = UDim2.new(0.575946987, 0, 0.995260477, 0)
 	Title.Font = Enum.Font.Nunito
 	Title.Text = Name
 	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -41,51 +39,48 @@ function ScriptHub:CreateWindow(Name)
 	Close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Close.BackgroundTransparency = 1.000
 	Close.BorderSizePixel = 0
-	Close.Position = UDim2.new(0.907216549, 0, 0, 0)
-	Close.Size = UDim2.new(0.08969073, 0, 0.997996926, 0)
+	Close.Position = UDim2.new(0.888888896, 0, 0, 0)
+	Close.Size = UDim2.new(0.110874772, 0, 1.00000012, 0)
 	Close.Font = Enum.Font.Nunito
 	Close.Text = "X"
 	Close.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Close.TextScaled = true
 	Close.TextSize = 14.000
 	Close.TextWrapped = true
+	
 	Close.MouseButton1Click:Connect(function()
 		ScreenGui:Destroy()
 	end)
 	
 	Background.Name = "Background"
 	Background.Parent = TopBar
-	Background.Active = true
-	Background.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	Background.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 	Background.BorderSizePixel = 0
-	Background.Position = UDim2.new(0, 0, 0.997999668, 0)
-	Background.Size = UDim2.new(1.00000012, 0, 7.82500458, 0)
-	Background.CanvasSize = UDim2.new(0, 0, 1, 0)
-	Background.ScrollBarThickness = 5
+	Background.Position = UDim2.new(0, 0, 0.995260358, 0)
+	Background.Size = UDim2.new(1, 0, 8.54644489, 0)
 
-	UIListLayout.Parent = Background
+	ScriptFrame.Name = "ScriptFrame"
+	ScriptFrame.Parent = TopBar
+	ScriptFrame.Active = true
+	ScriptFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	ScriptFrame.BorderSizePixel = 0
+	ScriptFrame.Position = UDim2.new(0.0425531901, 0, 0.99499929, 0)
+	ScriptFrame.Size = UDim2.new(0.912529528, 0, 8.11946011, 0)
+	ScriptFrame.ScrollBarThickness = 5
+	
+	UIListLayout.Parent = ScriptFrame
+	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.Padding = UDim.new(0, 4)
 	
 	
-	-- Scripts:
-	
-	local function IPLS_fake_script()
+	local function AFHUMX_fake_script()
 		local script = Instance.new('LocalScript', TopBar)
-	
+
 		script.Parent.Active = true
 		script.Parent.Draggable = true
 	end
-	coroutine.wrap(IPLS_fake_script)()
-	
-	
-	UIS.InputBegan:Connect(function(input)
-		if input.KeyCode == Enum.KeyCode.G then
-			if TopBar.Visible == true then TopBar.Visible = false else TopBar.Visible = true end
-		end
-	end)
-	
-	--Scripts End:
+	coroutine.wrap(AFHUMX_fake_script)()
 	
 	
 	local Buttons = {}
@@ -95,9 +90,11 @@ function ScriptHub:CreateWindow(Name)
 		local TextButton = Instance.new("TextButton")
 		local UICorner = Instance.new("UICorner")
 		
-		TextButton.Parent = Background
-		TextButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
-		TextButton.Size = UDim2.new(1.00000012, 0, 0.119999997, 0)
+		TextButton.Parent = ScriptFrame
+		TextButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+		TextButton.BorderSizePixel = 0
+		TextButton.Position = UDim2.new(-3.95305406e-08, 0, 0, 0)
+		TextButton.Size = UDim2.new(0.891191781, 0, 0.140000001, 0)
 		TextButton.Font = Enum.Font.Nunito
 		TextButton.Text = Text
 		TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -110,7 +107,6 @@ function ScriptHub:CreateWindow(Name)
 		
 		TextButton.MouseButton1Click:Connect(function()
 			pcall(Call)
-			ScreenGui:Destroy()
 		end)
 	end
 	
